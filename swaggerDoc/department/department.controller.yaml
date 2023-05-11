@@ -1,0 +1,73 @@
+paths:
+  /department/addDept:
+    post:
+      description: To add departments as bulk
+      tags:
+        - Add department
+      parameters:
+        - name: Data
+          in: body
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+          example: {
+            data: [
+              {'name':'CSE'},
+              {'name':'ECE'}
+            ]
+          }
+      responses:
+        '200':
+          description: Department created successfully
+          schema:
+            type: array
+            items: 
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+                deletedAt:
+                  type: string
+                  format: date-time     
+              example: {
+                [
+                  {
+                    "id": 1,
+                    "name": "CSE",
+                    "createdAt": "2023-05-11T07:05:49.887Z",
+                    "updatedAt": "2023-05-11T07:05:49.887Z",
+                    "deletedAt": null
+                  },
+                  {
+                    "id": 2,
+                    "name": "ECE",
+                    "createdAt": "2023-05-11T07:05:49.887Z",
+                    "updatedAt": "2023-05-11T07:05:49.887Z",
+                    "deletedAt": null
+                  }
+                ]
+                      }
+        '422':
+          description: department not created
+          schema:
+            type: object
+            properties:
+              success:
+                type: string
+                default: false
+              error:
+                type: string

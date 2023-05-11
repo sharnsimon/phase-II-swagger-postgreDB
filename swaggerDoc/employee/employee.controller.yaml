@@ -1,0 +1,158 @@
+paths:
+  /employee/:
+    post:
+      description: To add Employee details
+      tags:
+        - Employee details
+      parameters:
+        - name: Data
+          in: body
+          type: object
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              roleId:
+                type: integer
+              departmentId:
+                type: integer
+              isDeleted:
+                type: boolean
+            example:
+              {
+                "firstName": "Sharn",
+                "lastName": "Simon",
+                "email": "sharnjackson2002@gmail.com",
+                "password": "qwert123",
+                "roleId": 1,
+                "departmentId": 1,
+                "isDeleted": false
+              }
+      responses:
+        '200':
+          description: Employee created successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              roleId:
+                type: integer
+              departmentId:
+                type: integer
+              isDeleted:
+                type: boolean
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              deletedAt:
+                type: string
+                format: date-time
+            example:
+              {
+                "id": 1,
+                "firstName": "Sharn",
+                "lastName": "Simon",
+                "email": "sharnjackson2002@gmail.com",
+                "password": "qwert123",
+                "roleId": 1,
+                "departmentId": 1,
+                "isDeleted": false,
+                "createdAt":"2023-05-11 11:13:58.185+05:30",
+                "updatedAt":"2023-05-11 11:15:50.318+05:30",
+                "deletedAt": null
+              }
+        '422':
+          description: Employee not created
+          schema:
+            type: object
+            properties:
+              success:
+                type: string
+                default: false
+              error:
+                type: string
+  /employee/getemp:
+    get:
+      description: Print the employees using query params
+      tags:
+        - Get employee
+      parameters:
+        - name: Data
+          in: query
+          type: integer
+      responses:
+        '200':
+          description: Employee fetched successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              roleId:
+                type: integer
+              departmentId:
+                type: integer
+              isDeleted:
+                type: boolean
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              deletedAt:
+                type: string
+                format: date-time
+            example:
+              {
+                "id": 4,
+                "firstName": "Sha",
+                "lastName": "sharn",
+                "email": "sharnjackson2002@gmail.com",
+                "password": "qwert123",
+                "roleId": 1,
+                "departmentId": 1,
+                "isDeleted": false,
+                "createdAt": "2023-05-11T05:44:32.514Z",
+                "updatedAt": "2023-05-11T05:45:50.318Z",
+                "deletedAt": null
+              }
+        '422':
+          description: employee not fetched
+          schema:
+            type: object
+            properties:
+              success:
+                type: string
+                default: false
+              error:
+                type: string
+
+          

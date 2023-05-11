@@ -1,0 +1,44 @@
+paths:
+  /role/deleteRole/{id}:
+    put:
+      description: To soft delete a role
+      tags:
+        - Delete Role
+      parameters:
+        - name: id
+          in: path
+          type: integer
+      responses:
+        '200':
+          description: Role deleted successfully
+          schema:
+            type: object
+            properties:
+              rows deleted:
+                type: array
+              success:
+                type: string
+                default: true
+            example:
+              {
+                  "rows deleted": [
+                      3
+                  ],
+                  "success": true
+              }
+        '422':
+          description: employee not fetched
+          schema:
+            type: object
+            properties:
+              success:
+                type: string
+                default: false
+              error:
+                type: string
+              
+
+
+             
+
+            
