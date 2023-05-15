@@ -3,6 +3,32 @@ const Role =  require('../../models').role
 const Employee = require('../../models').employee
 const {to,TE, ReE} = require('../../global_functions')
 
+const getRole = async function(data){
+  
+    let [err,role] = await to(Role.findOne({
+        where:{
+            id:data
+        }
+    }))
+    if(err) return TE(err.message)
+    if(role) return role
+}
+
+module.exports.getRole = getRole
+
+const getDept = async function(data){
+  
+    let [err,dept] = await to(Department.findOne({
+        where:{
+            id:data
+        }
+    }))
+    if(err) return TE(err.message)
+    if(dept) return dept
+}
+
+module.exports.getDept = getDept
+
 
 const addBulkDept = async function(data){
     let [err,dept] = await to(Department.bulkCreate(data));
@@ -51,3 +77,4 @@ const deleteRole = async function(data){
 }
 
 module.exports.deleteRole = deleteRole  
+

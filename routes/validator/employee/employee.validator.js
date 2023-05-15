@@ -9,7 +9,10 @@ const employeeValidator = {
         body('email').trim().isEmail().notEmpty().withMessage('Email should be in the format of abc@email.com'),
     ],
     getEmployee:[
-        query('id').notEmpty().isNumeric().withMessage('ID is invalid')
+        param('id').notEmpty().isNumeric().withMessage('ID is invalid')
+    ],
+    getEmployeeDetailsOf:[
+        param('id').notEmpty().isNumeric().withMessage('ID is invalid')
     ]
 }
 module.exports.employeeValidator = employeeValidator

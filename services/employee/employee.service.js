@@ -1,5 +1,9 @@
 const Employee = require('../../models').employee
 const {to,TE} =require('../../global_functions')
+const db = require('../../models/index')
+const consolidatedService = require('../consolidated.service')
+const settingsService = require('../settings/settings.service')
+
 const addEmployee = async function(data){
     console.log('1234r')
     let [err,emp] = await to(Employee.create({
@@ -17,18 +21,51 @@ const addEmployee = async function(data){
 module.exports.addEmployee = addEmployee
 
 const getEmployee = async function(data){
-    let[errr,count] = await to(Employee.count())
-    if(data.id<=count){
     let [err,emp] = await to(Employee.findOne({
         where:{
-            id:data.id
+            id:data
         }
     }))
     if(err) return TE(err.message)
-    return emp
-}
-    else{
-        return TE(`The total number of employees is ${count}`)
-    }
+    // if(emp){
+    //     let[rolerr,role]= await to (consolidatedService.callOtherSchema(settingsService,'getRole',emp.dataValues.roleId))
+    //     if(rolerr) return TE(rolerr.message)
+    //     if(role) emp.dataValues.roleDetails = role;
+
+    //     let [depterr,dept]= await to(consolidatedService.callOtherSchema(settingsService,'getDept',emp.dataValues.departmentId))
+    //     if(depterr)return TE(depterr.message)
+    //     if(dept) emp.dataValues.deptDetails = dept;
+    // }
+    // if(role&&dept) return emp
+    return emp;
+                           
+
 }
 module.exports.getEmployee = getEmployee
+
+const getEmployeeDet = async function(data){
+    let [err,emp] = await to(Employee.findOne({
+        where:{
+            id:data
+        }
+    }))
+    if(err) return TE(err.message)
+    if(emp){
+        console.log('dfghj',emp)
+        let[rolerr,role]= await to(consolidatedService.callOtherSchema(settingsService,'getRole',emp.dataValues.roleId))
+        // console.log(role.dataValues)
+        if(rolerr) return TE(rolerr.message)
+        if(role) emp.dataValues.roleDetails = role;
+        console.log(emp.dataValues)
+
+        let [depterr,dept]= await to(consolidatedService.callOtherSchema(settingsService,'getDept',emp.dataValues.departmentId))
+        if(depterr)return TE(depterr.message)
+        if(dept) emp.dataValues.deptDetails = dept;
+
+        return emp;
+    }
+    
+                           
+
+}
+module.exports.getEmployeeDet = getEmployeeDet

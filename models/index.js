@@ -9,37 +9,37 @@ var db = {};
 require('../config/config')
 require("../config/constant");
 
-// let environment = CONFIG.environment;
-// if (environment && environment.toLowerCase() == "test") {
-//   CONSTANT.SCHEMAS.forEach((item) => {
-//     fs.readdirSync(__dirname + "/" + item)
-//       .filter((file) => {
-//         return (
-//           file.indexOf(".") !== 0 &&
-//           file !== basename &&
-//           file.slice(-3) === ".js"
-//         );
-//       })
-//       .forEach((file) => {
-//         db[file.slice(0, -3)] = {
-//           findOne: () => { },
-//           find: () => { },
-//           create: () => { },
-//           update: () => { },
-//           delete: () => { },
-//           findAndCountAll: () => { },
-//           count: () => { },
-//           findAll: () => { },
-//         };
-//       });
-//   });
-//   db.sequelize = {
-//     transaction: (item) => { let runAfterCommit; return Promise.resolve({ commit: () => { if (runAfterCommit && runAfterCommit.func) { runAfterCommit.func(); } }, rollback: () => { }, afterCommit: (func) => { runAfterCommit = { func: func } } }) },
-//     QueryTypes: {
-//       SELECT: {}
-//     }
-//   }
-// } else {
+let environment = CONFIG.environment;
+if (environment && environment.toLowerCase() == "test") {
+  CONSTANT.SCHEMAS.forEach((item) => {
+    fs.readdirSync(__dirname + "/" + item)
+      .filter((file) => {
+        return (
+          file.indexOf(".") !== 0 &&
+          file !== basename &&
+          file.slice(-3) === ".js"
+        );
+      })
+      .forEach((file) => {
+        db[file.slice(0, -3)] = {
+          findOne: () => { },
+          find: () => { },
+          create: () => { },
+          update: () => { },
+          delete: () => { },
+          findAndCountAll: () => { },
+          count: () => { },
+          findAll: () => { },
+        };
+      });
+  });
+  db.sequelize = {
+    transaction: (item) => { let runAfterCommit; return Promise.resolve({ commit: () => { if (runAfterCommit && runAfterCommit.func) { runAfterCommit.func(); } }, rollback: () => { }, afterCommit: (func) => { runAfterCommit = { func: func } } }) },
+    QueryTypes: {
+      SELECT: {}
+    }
+  }
+} else {
   let sequelize = new Sequelize(
     CONFIG.db_name,
     CONFIG.db_user,
@@ -115,7 +115,7 @@ require("../config/constant");
   db.schemaCreate = schemaCreate();
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
-
+}
 module.exports = db;
 // module.exports = sequelize;
 
