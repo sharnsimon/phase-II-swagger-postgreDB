@@ -13,7 +13,7 @@ const validate = require('../../middleware/validate-schema')
     * Method addDept is used to insert departments as a bulk 
 */
 const addDept = async function(req,res){
-    let [err,dept] = await to(settingsService.addBulkDept(req.body.data))
+    let [err,dept] = await to(settingsService.addBulkDept(req&&req.body&&req.body.data?req.body.data:null))
     if(err) return ReE(res,err,422)
     if(dept) return ReS(res,dept,200)
 }
@@ -35,6 +35,7 @@ const addRole = async function(req,res){
     if(dept) return ReS(res,dept,200)
 }
 
+
 router.post('/addRole',addRole)
 
 /*
@@ -54,4 +55,4 @@ const deleteRole = async function(req,res){
  
 router.put('/deleteRole/:id',roleValidator.deleteRow,validate.validate,deleteRole)
 
-module.exports = {router}
+module.exports = {router,addDept,addRole,deleteRole}

@@ -1,6 +1,5 @@
 const Employee = require('../../models').employee 
 const employeeController = require('../employee/employee.controller')
-const consolidatedService = require('../../services/consolidated.service')
 jest.setTimeout(10000);
 
 const mockRequest = () => {
@@ -92,7 +91,7 @@ describe('employee controller',()=>{
                 }));
             await employeeController.getEmployeeDetailsOf(req,res);
             expect(res.statusCode).toBe(422);
-            
+
             Employee.findOne = jest.fn()
                 .mockResolvedValueOnce(Promise.resolve({
                     dataValues:{
