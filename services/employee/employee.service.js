@@ -5,14 +5,14 @@ const consolidatedService = require('../consolidated.service')
 const settingsService = require('../settings/settings.service')
 
 const addEmployee = async function(data){
-    console.log('1234r')
+
     let [err,emp] = await to(Employee.create({
         firstName:data.firstName,
         lastName:data.lastName,
         email:data.email,
-        password:data.password?data.password:null,
-        roleId:data.roleId?data.roleId:0,
-        departmentId:data.departmentId?data.departmentId:0,
+        password:data.password,
+        roleId:data.roleId,
+        departmentId:data.departmentId,
         isDeleted:data.isDeleted
 }))
     if(err) return TE(err.message)
@@ -23,7 +23,7 @@ module.exports.addEmployee = addEmployee
 const getEmployee = async function(data){
     let [err,emp] = await to(Employee.findOne({
         where:{
-            id:data
+            id:data?data:null
         }
     }))
     if(err) return TE(err.message)

@@ -7,7 +7,7 @@ const getRole = async function(data){
   
     let [err,role] = await to(Role.findOne({
         where:{
-            id:data
+            id:data?data:null
         }
     }))
     if(err) return TE(err.message)
@@ -20,7 +20,7 @@ const getDept = async function(data){
   
     let [err,dept] = await to(Department.findOne({
         where:{
-            id:data
+            id:data?data:null
         }
     }))
     if(err) return TE(err.message)

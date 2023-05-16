@@ -17,7 +17,7 @@ const validate = require('../../middleware/validate-schema')
 
 let addEmployeeDetails = async function(req,res){
     console.log('1234')
-    let[err,emp] = await to(employeeService.addEmployee(req.body));
+    let[err,emp] = await to(employeeService.addEmployee(req&&req.body?req.body:null));
     if(err) return ReE(res,err,422)
     if(emp) return ReS(res,emp,200)
 }
@@ -52,4 +52,4 @@ router.post('/',employeeValidator.addEmployee,validate.validate,addEmployeeDetai
 router.get('/getemp/:id',employeeValidator.getEmployee,validate.validate,getEmployeeDetails)
 router.get('/getempdet/:id',employeeValidator.getEmployeeDetailsOf,validate.validate,getEmployeeDetailsOf)
 
-module.exports = {router,getEmployeeDetails,getEmployeeDetailsOf}
+module.exports = {router,getEmployeeDetails,getEmployeeDetailsOf,addEmployeeDetails}
